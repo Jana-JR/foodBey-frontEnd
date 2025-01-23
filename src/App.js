@@ -1,11 +1,20 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { Navbar } from './components/Navbar/Navbar';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import darkTheme from './theme/DarkTheme';
+import Home from './components/Home/Home';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <h1 className='text-red-600'>dflkgl</h1>
-    </div>
+<ThemeProvider theme={darkTheme}>
+  <CssBaseline/>
+  <Navbar/>
+  <Home/>
+</ThemeProvider>
   );
 }
 
