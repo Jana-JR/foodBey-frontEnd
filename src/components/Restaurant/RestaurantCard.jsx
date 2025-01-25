@@ -27,7 +27,7 @@ const RestaurantCard = () => {
 
       <div className="p-4 textPart lg:flex w-full justify-between">
         <div className="space-y-1">
-          <p className="font-semibold text-lg">Indian fast food</p>
+          <p className="font-semibold text-lg">Srilankan fast food</p>
           <p className="text-gray-500 text-sm">
             craving it all? Divee into a taste of east at Carrera and Kecilson,
             where Asian cuisines from Thailand, Indonesia, Malaysia and Vietnam
