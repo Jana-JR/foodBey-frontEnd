@@ -6,6 +6,8 @@ import darkTheme from './theme/DarkTheme';
 import Home from './components/Home/Home';
 import RestaurantDetails from './components/Restaurant/RestaurantDetails';
 import Cart from './components/Cart/Cart';
+import { ProfileNavigation } from './components/profile/ProfileNavigation';
+import { CustomerRoute } from './routers/CustomerRoute';
 
 
 
@@ -14,10 +16,12 @@ function App() {
   return (
 <ThemeProvider theme={darkTheme}>
   <CssBaseline/>
-  <Navbar/>
+  {/* <Navbar/> */}
   {/* <Home/> */}
   {/* <RestaurantDetails/> */}
-  <Cart/>
+  {/* <Cart/> */}
+  {/* <ProfileNavigation/> */}
+  <CustomerRoute/>
 
 </ThemeProvider>
   );
