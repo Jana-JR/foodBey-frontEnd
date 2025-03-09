@@ -33,7 +33,7 @@ const Home = () => {
         </h1>
         <div className="flex flex-wrap items-center justify-around gap-5">
           {
-            restaurants.map((item) => <RestaurantCard/>) 
+            restaurants.map((item, index) => <RestaurantCard key={index}/>) 
 
           }
         </div>
