@@ -1,7 +1,9 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { registerUser } from "../../state/Authentication/Action";
 
 const initialValues = {
   fullName: "",
@@ -11,10 +13,12 @@ const initialValues = {
 };
 
 export const RegisterForm = () => {
-  const handleSubmit = (values) => {
-    console.log("Form submitted", values);
-  };
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values) => {
+    dispatch(registerUser({ userData: values, navigate }));
+  };
 
   return (
     <div>
@@ -78,7 +82,8 @@ export const RegisterForm = () => {
             fullWidth
             type="submit"
             variant="contained"
-          ></Button>
+          >Register
+          </Button>
         </Form>
       </Formik>
       <Typography variant="body2" align="center" sx={{ mt: 3 }}>
