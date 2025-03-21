@@ -21,7 +21,7 @@ export const restaurantsOrderReducer = (state = initialState, action) => {
       return { ...state,
         error:null, 
         isLoading: false, 
-        orders: payload
+        orders: action.payload
     };
     case actionTypes.UPDATE_ORDER_STATUS_SUCCESS:
       const updatedOrders = state.orders.map((order) => 
