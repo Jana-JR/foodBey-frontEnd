@@ -1,19 +1,20 @@
 import * as actionTypes from "./ActionType"
+import {LOGOUT} from "../Authentication/ActionType"
 const initialState = {
-  menuItems: [],
+  cart: null,
+  cartItems: [],
   isLoading: false,
   error: null,
-  search: [],
 };
 
 
-export const menuItemReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.CREATE_MENU_ITEM_REQUEST:
-    case actionTypes.GET_MENU_ITEMS_BY_RESTAURANT_ID_REQUEST:
-    case actionTypes.DELETE_MENU_ITEM_REQUEST:
-    case actionTypes.SEARCH_MENU_ITEM_REQUEST:
-    case actionTypes.UPDATE_MENU_ITEMS_AVAILABILITY_REQUEST:
+    case actionTypes.FIND_CART_REQUEST:
+    case actionTypes.GET_ALL_CART_ITEMS_REQUEST:
+    case actionTypes.UPDATE_CART_ITEM_REQUEST:
+    case actionTypes.REMOVE_CART_ITEM_REQUEST:
+    
   
       return { ...state, 
         isLoading: true, 
@@ -21,54 +22,53 @@ export const menuItemReducer = (state = initialState, action) => {
         message: null 
     };
 
-    case actionTypes.CREATE_MENU_ITEM_SUCCESS:
-      return { ...state, 
-        isLoading: false, 
-        menuItems: [...state.menuItems, action.payload],
-        message: "food created succesfully"
-    };
-
     
-    case actionTypes.GET_MENU_ITEMS_BY_RESTAURANT_ID_SUCCESS:
+    case actionTypes.FIND_CART_SUCCESS:
       return { ...state, 
         isLoading: false, 
-        menuItems:action.payload
+        cart:action.payload,
+        cartItems:action.payload.items,
     };
 
-    case actionTypes.DELETE_MENU_ITEM_SUCCESS:
+    case actionTypes.ADD_ITEM_TO_CART_SUCCESS:
       return { ...state, 
         isLoading: false,
-        menuItems:state.menuItems.filter(
-          (menuItem) => menuItem.id !== action.payload
+        cartItems: [action.payload, ...state.cartItems], 
+    };
+
+
+    case actionTypes.REMOVE_CART_ITEM_SUCCESS:
+      return { ...state, 
+        isLoading: false,
+        cartItems:state.cartItems.filter(
+          (item) => item.id !== action.payload
         ),
     };
 
-    case actionTypes.UPDATE_MENU_ITEMS_AVAILABILITY_SUCCESS:
+    case actionTypes.UPDATE_CART_ITEM_SUCCESS:
       return { ...state, 
         isLoading: false,
-        menuItems:state.menuItems.map(
-          (menuItem) => menuItem.id === action.payload.id?action.payload:menuItem
+        cartItems:state.cartItems.map(
+          (item) => item.id === action.payload.id?action.payload:item
         ),
        };
 
-    case actionTypes.SEARCH_MENU_ITEM_SUCCESS:
-      return { ...state, 
-        isLoading: false,
-        events: action.payload, 
-    };
+   
 
-
-    case actionTypes.CREATE_MENU_ITEM_FAILURE:
-    case actionTypes.DELETE_MENU_ITEM_FAILURE:
-    case actionTypes.GET_MENU_ITEMS_BY_RESTAURANT_ID_FAILURE:
-    case actionTypes.SEARCH_MENU_ITEM_FAILURE:
-    case actionTypes.UPDATE_MENU_ITEMS_AVAILABILITY_FAILURE:
+    case actionTypes.FIND_CART_FAILURE:
+    case actionTypes.UPDATE_CART_ITEM_FAILURE:
+    case actionTypes.REMOVE_CART_ITEM_FAILURE:
+    case actionTypes.GET_ALL_CART_ITEMS_FAILURE:
       return { ...state, 
         isLoading: false, 
         error: action.payload,
         message:null
     };
 
+    case LOGOUT:
+      localStorage.removeItem("jwt");
+      return {...state, cartItems:[], cart:null, success:"Logout success"}
+      
 
     default:
       return state;
