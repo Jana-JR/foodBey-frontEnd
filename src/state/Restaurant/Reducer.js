@@ -30,7 +30,8 @@ GET_RESTAURANT_CATEGORY_FAILURE,
 const initialState = {
   restaurants: [],
   usersRestaurant: null,
-  isLoading: false,
+  loading: false,
+  restaurant: null,
   error: null,
   events: [],
   restaurantsEvents: [],
@@ -49,42 +50,42 @@ export const restaurantReducer = (state = initialState, action) => {
     case GET_RESTAURANT_CATEGORY_REQUEST:
   
       return { ...state, 
-        isLoading: true, 
+        Loading: true, 
         error: null, 
         success: null 
     };
 
     case CREATE_RESTAURANT_SUCCESS:
       return { ...state, 
-        isLoading: false, 
+        loading: false, 
        usersRestaurant:action.payload
     };
 
     
     case GET_ALL_RESTAURANTS_SUCCESS:
       return { ...state, 
-        isLoading: false, 
-       usersRestaurant:action.payload
+        loading: false, 
+        restaurants:action.payload
     };
 
     case GET_RESTAURANT_BY_ID_SUCCESS:
       return { ...state, 
-        isLoading: false, 
-       usersRestaurant:action.payload
+        loading: false, 
+        restaurants:action.payload
     };
 
     case GET_RESTAURANT_BY_USER_ID_SUCCESS:
     case UPDATE_RESTAURANT_STATUS_SUCCESS:
     case UPDATE_RESTAURANT_SUCCESS:
       return { ...state, 
-        isLoading: false, 
+        loading: false, 
        usersRestaurant:action.payload
     };
 
 
     case DELETE_RESTAURANT_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         error: null,
         restaurants:state.restaurants.filter(
           (item) => item.id !== action.payload
@@ -96,26 +97,26 @@ export const restaurantReducer = (state = initialState, action) => {
 
     case CREATE_EVENTS_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         events: [...state.events, action.payload], 
        restaurantsEvents: [...state.restaurantsEvents, action.payload],
     };
 
     case GET_ALL_EVENTS_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         events: action.payload, 
     };
 
     case GET_RESTAURANT_EVENTS_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         restaurantsEvents: action.payload, 
     };
 
     case DELETE_EVENTS_SUCCESS :
       return { ...state, 
-        isLoading: false,
+        loading: false,
         error: null,
         restaurantsEvents: state.restaurantsEvents.filter(
           (item) => item.id !== action.payload
@@ -125,14 +126,14 @@ export const restaurantReducer = (state = initialState, action) => {
       
     case CREATE_CATEGORY_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         categories: [...state.categories, action.payload], 
 
     };
 
     case GET_RESTAURANT_CATEGORY_SUCCESS:
       return { ...state, 
-        isLoading: false,
+        loading: false,
         categories: action.payload, 
     };
 
@@ -144,7 +145,7 @@ export const restaurantReducer = (state = initialState, action) => {
     case CREATE_CATEGORY_FAILURE:
     case GET_RESTAURANT_CATEGORY_FAILURE:
       return { ...state, 
-        isLoading: false, 
+        loading: false, 
         error: action.payload,
     };
 

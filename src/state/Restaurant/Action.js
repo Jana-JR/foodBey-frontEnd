@@ -1,3 +1,4 @@
+
 import { api } from "../../components/config/api";
 import {
     CREATE_CATEGORY_FAILURE,
@@ -44,6 +45,7 @@ import {
 } from "./ActionType";
 
 export const getAllRestaurants = (token) => async (dispatch) => {
+
   dispatch({ type: GET_ALL_RESTAURANTS_REQUEST });
   try {
     const { data } = await api.get(`/api/restaurants`, {
@@ -100,7 +102,7 @@ export const createRestaurant = (reqData) => async (dispatch) => {
   console.log("token---> ", reqData.token);
   dispatch({ type: CREATE_RESTAURANT_REQUEST });
   try {
-    const response = await api.post(`/api/admin/restaurants`, reqData.data, {
+    const {data} = await api.post(`/api/admin/restaurants`, reqData.data, {
       headers: {
         Authorization: `Bearer ${reqData.token}`,
       },
@@ -122,7 +124,7 @@ export const updateRestaurant =
     dispatch({ type: UPDATE_RESTAURANT_REQUEST });
     try {
       const res = await api.put(
-        `/api/admin/restaurant/${restaurantId}`,
+        `/api/admin/restaurants/${restaurantId}`,
         restaurantData,
         {
           headers: {
@@ -148,7 +150,7 @@ export const deleteRestaurant =
     try {
       const res = await api.delete(
         `/api/admin/restaurants/${restaurantId}`,
-        restaurantData,
+        
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -232,7 +234,7 @@ export const getAllEvents =
       );
       dispatch({
         type: GET_ALL_EVENTS_SUCCESS,
-        payload: restaurantId,
+        payload: res.data,
       });
       console.log("all events ", res.data);
     } catch (error) {
@@ -280,7 +282,7 @@ export const deleteEvent =
       );
       dispatch({
         type: GET_RESTAURANT_EVENTS_SUCCESS,
-        payload: eventId,
+        payload: res.data,
       });
       console.log("All event ", res.data);
     } catch (error) {
@@ -305,7 +307,7 @@ export const deleteEvent =
       );
       dispatch({
         type: CREATE_CATEGORY_SUCCESS,
-        payload: eventId,
+        payload: res.data,
       });
       console.log("category created", res.data);
     } catch (error) {
@@ -329,7 +331,7 @@ export const deleteEvent =
       );
       dispatch({
         type: GET_RESTAURANT_CATEGORY_SUCCESS,
-        payload: eventId,
+        payload: res.data,
       });
       console.log("get restaurant category", res.data);
     } catch (error) {

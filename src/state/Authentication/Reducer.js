@@ -19,6 +19,7 @@ const initialState = {
   user: null,
   isLoading: false,
   error: null,
+  jwt: null,
   favourites: [],
   success: null,
 };
@@ -48,6 +49,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         user: action.payload,
+        favourites: action.payload.favourites,
       };
     case ADD_TO_FAVOURITE_SUCCESS:
       return { ...state, 
